@@ -13,6 +13,7 @@ exploring my brand new smartphone, the good `Nokia 5800 Xpress Music`_.
 Features
 --------
 
+* Multi-lingual interface (English and Brazilian Portuguese);
 * Configurable applications and commands;
 * Rich touchpad support that emulates a two-button mouse with vertical and
   horizontal scrollbars;
