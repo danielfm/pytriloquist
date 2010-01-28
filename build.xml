@@ -1,0 +1,16 @@
+<project name="Pytriloquist" basedir=".">
+    <property file="${basedir}/build.properties"/>
+
+    <target name="compile-po" description="Compile translation files for use with gettext">
+        <exec executable="pocompile" dir="${locale.dir}/en/LC_MESSAGES">
+            <arg value="pytriloquist.po"/>
+            <arg value="-o"/>
+            <arg value="pytriloquist.mo"/>
+        </exec>
+        <exec executable="pocompile" dir="${locale.dir}/pt_BR/LC_MESSAGES">
+            <arg value="pytriloquist.po"/>
+            <arg value="-o"/>
+            <arg value="pytriloquist.mo"/>
+        </exec>
+    </target>
+</project>
