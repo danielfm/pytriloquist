@@ -13,7 +13,7 @@ MOUSE_DROP  = 'ste "mouseup %s"'       # mouse button
 
 
 def server_socket(channel):
-    """
+    """Creates a Bluetooth RFCOMM server socket bound to the given channel.
     """
     socket = BluetoothSocket(proto=RFCOMM)
     socket.bind(("", channel))

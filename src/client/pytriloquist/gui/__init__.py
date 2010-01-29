@@ -3,7 +3,7 @@ class Dialog(object):
     Dialog base class.
     """
     def __init__(self, app, parent=None):
-        """Creates a new dialog.
+        """Initializes a new dialog.
         """
         self.initialized = False
         self.app, self.parent = app, parent
@@ -26,12 +26,14 @@ class Dialog(object):
             self.parent.execute()
 
     def init_ui(self):
-        """Creates the UI elements.
+        """Creates the UI elements. This default implementation raises
+        NotImplementedError
         """
         raise NotImplementedError
 
     def display(self):
-        """Displays the UI on the screen.
+        """Displays the UI on the screen. This default implementation raises
+        NotImplementedError
         """
         raise NotImplementedError
 

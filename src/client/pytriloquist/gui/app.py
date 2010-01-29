@@ -25,7 +25,7 @@ class ApplicationsDialog(Dialog):
         # Load the list of applications
         self.apps = []
 
-        view = self.app.dbm.query(Const.apps_select)
+        view = self.app.dbm.query(Const.DB_APPLICATIONS_SELECT)
         for i in range(view.count_line()):
             view.get_line()
             self.apps.append((view.col(1), view.col(2)))
@@ -39,7 +39,7 @@ class ApplicationsDialog(Dialog):
 
         # Menu callbacks
         self.menu = [
-            (_(u"New"), self.new_app),
+            (_(u"New")   , self.new_app),
             (_(u"Delete"), self.delete_app),
             (_(u"Rename"), self.rename_app),
         ]
@@ -65,7 +65,7 @@ class ApplicationsDialog(Dialog):
         """
         name = ui.query(_(u"Application name"), "text")
         if name:
-            self.app.dbm.execute(Const.apps_insert % name)
+            self.app.dbm.execute(Const.DB_APPLICATIONS_INSERT % name)
             self.execute(force=True)
 
     def delete_app(self):
@@ -77,9 +77,8 @@ class ApplicationsDialog(Dialog):
             if selected[0] >= 0:
                 if ui.query(_(u"Delete \"%s\"?") % selected[1], "query"):
                     self.app.dbm.execute_atomic([
-                        Const.apps_delete % selected[0],
-                        Const.cmds_app_delete % selected[0]
-                    ])
+                        Const.DB_APPLICATIONS_DELETE % selected[0],
+                        Const.DB_COMMANDS_APP_DELETE % selected[0]])
                     self.execute(force=True)
             else:
                 ui.note(_(u"Cannot remove an action."), "error")
@@ -93,7 +92,8 @@ class ApplicationsDialog(Dialog):
             if selected[0] >= 0:
                 name = ui.query(_(u"Application name"), "text", self.apps[index][1])
                 if name:
-                    self.app.dbm.execute(Const.apps_rename % (name, selected[0]))
+                    self.app.dbm.execute(
+                        Const.DB_APPLICATIONS_UPDATE % (name, selected[0]))
                     self.execute(force=True)
             else:
                 ui.note(_(u"Cannot edit an action."), "error")
@@ -120,7 +120,7 @@ class CommandsDialog(Dialog):
         # Load the list of commands
         self.cmds = []
 
-        view = self.app.dbm.query(Const.cmds_select % self.app_data[0])
+        view = self.app.dbm.query(Const.DB_COMMANDS_SELECT % self.app_data[0])
         for i in range(view.count_line()):
             view.get_line()
             self.cmds.append((view.col(1), view.col(2), view.col(3), view.col(4)))
@@ -166,14 +166,14 @@ class CommandsDialog(Dialog):
         EditCommandDialog(self.app_data, None, self.app, self).execute()
 
     def delete_cmd(self):
-        """Removes the selected application.
+        """Removes the selected command.
         """
         index = self.cmd_list.current()
         if index >= 0:
             selected = self.cmds[index]
             if selected[0] >= 0:
                 if ui.query(_(u"Delete \"%s\"?") % selected[2], "query"):
-                    self.app.dbm.execute(Const.cmds_delete % selected[0])
+                    self.app.dbm.execute(Const.DB_COMMANDS_DELETE % selected[0])
                     self.execute(force=True)
             else:
                 ui.note(_(u"Cannot remove an action."), "error")
@@ -221,7 +221,7 @@ class EditCommandDialog(Dialog):
 
         # Form fields
         self.fields = [
-            (_(u"Name"),    "text", name),
+            (_(u"Name")        , "text", name),
             (_(u"Command line"), "text", command),
         ]
 
@@ -257,13 +257,13 @@ class EditCommandDialog(Dialog):
         self.form_saved, self.saved_data = True, data
 
         if not self.command_data:
-            self.app.dbm.execute(Const.cmds_insert % (
+            self.app.dbm.execute(Const.DB_COMMANDS_INSERT % (
                 self.app_data[0],
                 self.get_name(),
                 self.get_command()
             ))
         else:
-            self.app.dbm.execute(Const.cmds_edit % (
+            self.app.dbm.execute(Const.DB_COMMANDS_UPDATE % (
                 self.get_name(),
                 self.get_command(),
                 self.command_data[0]

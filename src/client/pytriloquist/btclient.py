@@ -5,7 +5,7 @@ class BluetoothClient(object):
     """Communication over Bluetooth.
     """
     def __init__(self, app):
-        """
+        """Initializes a new instance.
         """
         self.socket = None
         self.app = app
@@ -13,10 +13,14 @@ class BluetoothClient(object):
     def connect(self):
         """Connects to the server.
         """
-        if not self.socket:
-            settings = self.app.get_settings()
-            self.socket = socket.socket(socket.AF_BT, socket.SOCK_STREAM)
-            self.socket.connect(settings[:2])
+        try:
+            if not self.socket:
+                server_addr = self.app.get_settings()[:2]
+                self.socket = socket.socket(socket.AF_BT, socket.SOCK_STREAM)
+                self.socket.connect(server_addr)
+        except:
+            self.close()
+            raise
 
     def close(self):
         """Closes the connection.
@@ -24,13 +28,18 @@ class BluetoothClient(object):
         try:
             if self.socket:
                 self.socket.close()
-                self.socket = None
         except:
             pass
+        finally:
+            self.socket = None
 
     def send_command(self, cmd_id, cmd):
         """Sends a command to the server.
         """
         self.connect()
-        if self.socket:
-            self.socket.send(str(cmd_id) + cmd + "\n")
+        try:
+            if self.socket:
+                self.socket.send(str(cmd_id) + cmd + "\n")
+        except:
+            self.close()
+            raise

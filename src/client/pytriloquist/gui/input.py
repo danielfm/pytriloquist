@@ -2,16 +2,7 @@ import appuifw as ui
 import btsocket as socket
 import key_codes
 
-from pytriloquist import gui
-
-# Data sent to the server when a mouse event occurs
-MOUSE_MOVE         = "%s:%s" # x, y
-MOUSE_LEFT_BUTTON  = "1"
-MOUSE_RIGHT_BUTTON = "3"
-MOUSE_SCROLL_UP    = "5"
-MOUSE_SCROLL_DOWN  = "4"
-MOUSE_SCROLL_LEFT  = "6"
-MOUSE_SCROLL_RIGHT = "7"
+from pytriloquist import Const, gui
 
 
 class InputDialog(gui.Dialog):
@@ -107,7 +98,7 @@ class InputDialog(gui.Dialog):
         self.canvas.text((btn_right_txt_x, btn_right_txt_y), btn_right, font="title")
 
     def vert_scroll(self):
-        """Draws the vertical scroll.
+        """Defines the location of the vertical scroll on the screen.
         """
         vert_scroll_x1 = self.width - self.gap_size - self.scroll_width
         vert_scroll_y1 = self.gap_size
@@ -117,12 +108,12 @@ class InputDialog(gui.Dialog):
         self.vert_scroll_box = [(vert_scroll_x1, vert_scroll_y1), (vert_scroll_x2, vert_scroll_y2)]
 
     def draw_vert_scroll(self):
-        """
+        """Draws the vertical scroll.
         """
         self.canvas.rectangle(self.vert_scroll_box, None, 0xeeeeee);
 
     def horiz_scroll(self):
-        """Draws the horizontal scroll.
+        """Defines the location of the horizontal scroll on the screen.
         """
         horiz_scroll_x1 = self.btn_right_box[1][0] + self.gap_size
         horiz_scroll_y1 = self.height - self.gap_size - self.scroll_width
@@ -132,7 +123,7 @@ class InputDialog(gui.Dialog):
         self.horiz_scroll_box = [(horiz_scroll_x1, horiz_scroll_y1), (horiz_scroll_x2, horiz_scroll_y2)]
 
     def draw_horiz_scroll(self):
-        """
+        """Draws the horizontal scroll.
         """
         self.canvas.rectangle(self.horiz_scroll_box, None, 0xeeeeee);
 
@@ -151,21 +142,28 @@ class InputDialog(gui.Dialog):
         touchpad_txt_y = self.height/2 + touchpad_txt_height/2
         self.canvas.text((touchpad_txt_x, touchpad_txt_y), touchpad, font="title", fill=0xbbbbbb)
 
-    def redraw(self, rect):
-        """Canvas redraw callback.
+    def place_components(self):
+        """Places the components on the screen.
         """
-        # Places the "components" on the screen
         self.left_mouse_button()
         self.right_mouse_button()
         self.vert_scroll()
         self.horiz_scroll()
 
-        # Draw the screen
+    def draw_components(self):
+        """Draw the components on the screen.
+        """
         self.draw_touchpad()
         self.draw_left_mouse_button()
         self.draw_right_mouse_button()
         self.draw_vert_scroll()
         self.draw_horiz_scroll()
+
+    def redraw(self, rect):
+        """Canvas redraw callback.
+        """
+        self.place_components()
+        self.draw_components()        
 
     def resize(self, wh):
         """Canvas resize callback.
@@ -220,7 +218,7 @@ class InputDialog(gui.Dialog):
         """
         delta_xy = (x-self.old_x, y-self.old_y)
         self.old_x, self.old_y = x, y
-        self.send_command(1, MOUSE_MOVE % delta_xy)
+        self.send_command(1, Const.MOUSE_MOVE % delta_xy)
 
     def handle_vert_scroll(self, y):
         """Handles the mouse vertical scroll.
@@ -228,9 +226,9 @@ class InputDialog(gui.Dialog):
         delta_y = y - self.old_y
         self.old_y = y
         if delta_y < 0:
-            self.send_command(2, MOUSE_SCROLL_DOWN)
+            self.send_command(2, Const.MOUSE_SCROLL_DOWN)
         elif delta_y > 0:
-            self.send_command(2, MOUSE_SCROLL_UP)
+            self.send_command(2, Const.MOUSE_SCROLL_UP)
 
     def handle_horiz_scroll(self, x):
         """Handles the mouse horizontal scroll.
@@ -238,9 +236,9 @@ class InputDialog(gui.Dialog):
         delta_x = x - self.old_x
         self.old_x = x
         if delta_x < 0:
-            self.send_command(2, MOUSE_SCROLL_LEFT)
+            self.send_command(2, Const.MOUSE_SCROLL_LEFT)
         elif delta_x > 0:
-            self.send_command(2, MOUSE_SCROLL_RIGHT)
+            self.send_command(2, Const.MOUSE_SCROLL_RIGHT)
 
     def handle_release(self, x, y):
         """Handles the mouse release.
@@ -248,16 +246,16 @@ class InputDialog(gui.Dialog):
         # Left click or drag gesture
         if self.left_clicking:
             if self.is_inside(self.btn_left_box, (x, y)):
-                self.send_command(2, MOUSE_LEFT_BUTTON)
+                self.send_command(2, Const.MOUSE_LEFT_BUTTON)
             else:
-                self.send_command(3, MOUSE_LEFT_BUTTON)
+                self.send_command(3, Const.MOUSE_LEFT_BUTTON)
 
         # Right click or drag gesture
         if self.right_clicking:
             if self.is_inside(self.btn_right_box, (x, y)):
-                self.send_command(2, MOUSE_RIGHT_BUTTON)
+                self.send_command(2, Const.MOUSE_RIGHT_BUTTON)
             else:
-                self.send_command(3, MOUSE_RIGHT_BUTTON)
+                self.send_command(3, Const.MOUSE_RIGHT_BUTTON)
 
     def event(self, event):
         """Canvas event callback.

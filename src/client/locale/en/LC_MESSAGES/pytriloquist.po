@@ -1,0 +1,149 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Pytriloquist\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-01-29 12:45-0300\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Daniel Martins <daniel.tritone@gmail.com>\n"
+"Language-Team: Destaquenet Technology Solutions <contato@destaquenet.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Basepath: /home/daniel/Workspace/python/project/personal/pytriloquist\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: UNITED STATES\n"
+"X-Poedit-SearchPath-0: src\n"
+
+#: src/client/pytriloquist/__init__.py:80
+msgid "Portuguese (BR)"
+msgstr ""
+
+#: src/client/pytriloquist/__init__.py:81
+msgid "English"
+msgstr ""
+
+#: src/client/pytriloquist/gui/app.py:36
+#: src/client/pytriloquist/gui/app.py:42
+#: src/client/pytriloquist/gui/app.py:131
+msgid "New"
+msgstr ""
+
+#: src/client/pytriloquist/gui/app.py:43
+#: src/client/pytriloquist/gui/app.py:138
+msgid "Delete"
+msgstr ""
+
+#: src/client/pytriloquist/gui/app.py:44
+msgid "Rename"
+msgstr ""
+
+#: src/client/pytriloquist/gui/app.py:66
+#: src/client/pytriloquist/gui/app.py:93
+msgid "Application name"
+msgstr ""
+
+#: src/client/pytriloquist/gui/app.py:78
+#: src/client/pytriloquist/gui/app.py:175
+#, python-format
+msgid "Delete \"%s\"?"
+msgstr ""
+
+#: src/client/pytriloquist/gui/app.py:84
+#: src/client/pytriloquist/gui/app.py:179
+msgid "Cannot remove an action."
+msgstr ""
+
+#: src/client/pytriloquist/gui/app.py:99
+#: src/client/pytriloquist/gui/app.py:190
+msgid "Cannot edit an action."
+msgstr ""
+
+#: src/client/pytriloquist/gui/app.py:137
+#: src/client/pytriloquist/gui/app.py:209
+msgid "New command"
+msgstr ""
+
+#: src/client/pytriloquist/gui/app.py:139
+msgid "Edit"
+msgstr ""
+
+#: src/client/pytriloquist/gui/app.py:140
+msgid "Back"
+msgstr ""
+
+#: src/client/pytriloquist/gui/app.py:159
+#: src/client/pytriloquist/gui/input.py:191
+msgid "Communication failed."
+msgstr ""
+
+#: src/client/pytriloquist/gui/app.py:161
+#: src/client/pytriloquist/gui/input.py:193
+msgid "Unexpected error."
+msgstr ""
+
+#: src/client/pytriloquist/gui/app.py:210
+msgid "Edit command"
+msgstr ""
+
+#: src/client/pytriloquist/gui/app.py:224
+msgid "Name"
+msgstr ""
+
+#: src/client/pytriloquist/gui/app.py:225
+msgid "Command line"
+msgstr ""
+
+#: src/client/pytriloquist/gui/input.py:65
+msgid "L"
+msgstr ""
+
+#: src/client/pytriloquist/gui/input.py:91
+msgid "R"
+msgstr ""
+
+#: src/client/pytriloquist/gui/input.py:135
+msgid "Touchpad"
+msgstr ""
+
+#: src/client/pytriloquist/gui/main.py:33
+msgid "Apps"
+msgstr ""
+
+#: src/client/pytriloquist/gui/main.py:39
+msgid "Input"
+msgstr ""
+
+#: src/client/pytriloquist/gui/main.py:43
+#: src/client/pytriloquist/gui/settings.py:20
+msgid "Settings"
+msgstr ""
+
+#: src/client/pytriloquist/gui/main.py:44
+#: src/client/pytriloquist/gui/main.py:90
+msgid "About"
+msgstr ""
+
+#: src/client/pytriloquist/gui/main.py:45
+msgid "Exit"
+msgstr ""
+
+#: src/client/pytriloquist/gui/main.py:67
+msgid "Touch not enabled."
+msgstr ""
+
+#: src/client/pytriloquist/gui/main.py:83
+msgid "Authors:"
+msgstr ""
+
+#: src/client/pytriloquist/gui/settings.py:37
+msgid "Bluetooth Device"
+msgstr ""
+
+#: src/client/pytriloquist/gui/settings.py:38
+msgid "Channel"
+msgstr ""
+
+#: src/client/pytriloquist/gui/settings.py:39
+msgid "Language"
+msgstr ""
+

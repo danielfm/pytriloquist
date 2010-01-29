@@ -3,6 +3,7 @@ import appuifw as ui
 from pytriloquist import Const
 from pytriloquist.gui import Dialog
 
+
 class SettingsDialog(Dialog):
     """
     Dialog used to configure the application.
@@ -22,20 +23,20 @@ class SettingsDialog(Dialog):
         """Initializes the user interface.
         """
         # List of available locales
-        locales = [_(text) for text in self.app.get_meta()["locs"].values()]
+        locales = [_(text) for text in Const.APP_LOCALES.values()]
 
         # Load settings
         settings = self.app.get_settings()
 
         device  = settings[0]
         channel = settings[1]
-        locale  = self.app.get_meta()["locs"].keys().index(settings[2])
+        locale  = Const.APP_LOCALES.keys().index(settings[2])
 
         # Form fields
         self.fields = [
-            (_(u"Bluetooth Device"), "text", device),
-            (_(u"Channel"), "number", channel),
-            (_(u"Language"), "combo", (locales, locale)),
+            (_(u"Bluetooth Device"), "text"  , device),
+            (_(u"Channel")         , "number", channel),
+            (_(u"Language")        , "combo" , (locales, locale)),
         ]
 
         # Adjust flags
@@ -70,7 +71,7 @@ class SettingsDialog(Dialog):
         """Gets the locale from the saved form.
         """
         if self.form_saved:
-            locales = self.app.get_meta()["locs"].keys()
+            locales = Const.APP_LOCALES.keys()
             return locales[self.saved_data[2][2][1]]
 
     def save(self, data):
@@ -79,7 +80,7 @@ class SettingsDialog(Dialog):
         self.form_saved, self.saved_data = True, data
 
         # Save settings
-        self.app.dbm.execute(Const.settings_update % (
+        self.app.dbm.execute(Const.DB_SETTINGS_UPDATE % (
             self.get_bt_device(),
             self.get_bt_channel(),
             self.get_locale()

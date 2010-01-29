@@ -1,7 +1,3 @@
-import sys
-
-sys.path.append('E:/data/python')
-
 from pytriloquist import App
 from pytriloquist.gui.main import MainDialog
 

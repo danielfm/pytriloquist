@@ -1,0 +1,24 @@
+# Download PythonForS60 at http://garage.maemo.org/projects/pys60
+# PYS60_DIR = /path/to/PythonForS60
+PYS60_DIR = /home/daniel/Workspace/python/lib/s60/PythonForS60
+
+CWD = $(shell pwd)
+
+BUILD_DIR   = $(CWD)/build
+SRC_DIR     = $(CWD)/src
+SRC_CLI_DIR = $(SRC_DIR)/client
+
+PROJECT_NAME    = Pytriloquist
+PROJECT_VERSION = 0.1
+
+SRC_CLI_LOCALES = en pt_BR
+
+SIS_FILE     = $(BUILD_DIR)/$(PROJECT_NAME)-$(PROJECT_VERSION)
+SIS_APPNAME  = $(PROJECT_NAME)
+SIS_CAPTION  = $(PROJECT_NAME)
+SIS_SCAPTION = $(PROJECT_NAME)
+SIS_VENDOR   = Destaquenet Solutions
+SIS_UID      = 0xed3833bc
+SIS_ICON     = $(CWD)/icon.svg
+SIS_CAPS     = LocalServices
+SIS_LANG     = EN

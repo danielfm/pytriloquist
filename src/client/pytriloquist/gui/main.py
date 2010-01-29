@@ -1,6 +1,7 @@
 import appuifw as ui
 import globalui
 
+from pytriloquist import Const
 from pytriloquist.gui import Dialog
 
 from pytriloquist.gui.settings import SettingsDialog
@@ -20,15 +21,13 @@ class MainDialog(Dialog):
     def get_title(self):
         """Returns the dialog title.
         """
-        return self.app.get_meta()["title"]
+        return Const.APP_TITLE
 
     def init_ui(self):
         """Initializes the user interface.
         """
         self.settings_dialog = SettingsDialog(self.app, self)
-
-        self.apps_dialog = ApplicationsDialog(self.app, self)
-        self.input_dialog = InputDialog(self.app, self)
+        self.apps_dialog     = ApplicationsDialog(self.app, self)
 
         # Tabs
         self.tabs = [
@@ -37,6 +36,7 @@ class MainDialog(Dialog):
 
         # Only works with touch-enabled devices
         if ui.touch_enabled():
+            self.input_dialog = InputDialog(self.app, self)
             self.tabs.append((_(u"Input"), self.open_input))
 
         # Menu callbacks
@@ -49,6 +49,7 @@ class MainDialog(Dialog):
     def display(self):
         """Displays the dialog on the device.
         """
+        ui.app.screen = "normal"
         ui.app.set_tabs([t[0] for t in self.tabs], self.tab_handler)
         ui.app.exit_key_handler = self.app.exit
         self.tab_handler(0)
@@ -79,12 +80,16 @@ class MainDialog(Dialog):
     def show_about(self):
         """Shows the about dialog.
         """
-        data = self.app.get_meta()
-        data["authors"] = _(u"Authors:")
-
-        # Text template
+        data = {
+            "title"  : Const.APP_TITLE,
+            "version": Const.APP_VERSION,
+            "year"   : Const.APP_YEAR,
+            "url"    : Const.APP_URL,
+            "author" : Const.APP_AUTHOR,
+            "lauthor": _(u"Authors:"),
+        }
         text = u"%(title)s v%(version)s (c) %(year)s\n" \
-                "%(url)s\n\n"                         \
-                "%(authors)s\n"                       \
-                "Daniel Fernandes Martins"
-        globalui.global_msg_query(text % data, _(u"About"), 0)
+                "%(url)s\n\n"                           \
+                "%(lauthor)s\n"                         \
+                "%(author)s" % data
+        globalui.global_msg_query(text, _(u"About"), 0)
