@@ -205,9 +205,7 @@ class EditCommandDialog(Dialog):
     def get_title(self):
         """Returns the dialog title.
         """
-        if not self.command_data:
-            return _(u"New command")
-        return _(u"Edit command")
+        return self.app_data[1]
 
     def init_ui(self):
         """Initializes the user interface.
@@ -221,7 +219,7 @@ class EditCommandDialog(Dialog):
 
         # Form fields
         self.fields = [
-            (_(u"Name")        , "text", name),
+            (_(u"Command name"), "text", name),
             (_(u"Command line"), "text", command),
         ]
 

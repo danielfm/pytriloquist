@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pytriloquist\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-29 12:45-0300\n"
+"POT-Creation-Date: 2010-01-29 17:17-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Daniel Martins <daniel.tritone@gmail.com>\n"
 "Language-Team: Destaquenet Technology Solutions <contato@destaquenet.com>\n"
@@ -14,11 +14,11 @@ msgstr ""
 "X-Poedit-Country: BRAZIL\n"
 "X-Poedit-SearchPath-0: src\n"
 
-#: src/client/pytriloquist/__init__.py:80
+#: src/client/pytriloquist/__init__.py:34
 msgid "Portuguese (BR)"
 msgstr "Português (BR)"
 
-#: src/client/pytriloquist/__init__.py:81
+#: src/client/pytriloquist/__init__.py:35
 msgid "English"
 msgstr "Inglês"
 
@@ -59,7 +59,6 @@ msgid "Cannot edit an action."
 msgstr "Impossível editar uma ação."
 
 #: src/client/pytriloquist/gui/app.py:137
-#: src/client/pytriloquist/gui/app.py:209
 msgid "New command"
 msgstr "Novo comando"
 
@@ -81,15 +80,11 @@ msgstr "Falha na comunicação."
 msgid "Unexpected error."
 msgstr "Erro inesperado."
 
-#: src/client/pytriloquist/gui/app.py:210
-msgid "Edit command"
-msgstr "Alterar comando"
+#: src/client/pytriloquist/gui/app.py:222
+msgid "Command name"
+msgstr "Nome do comando"
 
-#: src/client/pytriloquist/gui/app.py:224
-msgid "Name"
-msgstr "Nome"
-
-#: src/client/pytriloquist/gui/app.py:225
+#: src/client/pytriloquist/gui/app.py:223
 msgid "Command line"
 msgstr "Linha de comando"
 
@@ -105,33 +100,33 @@ msgstr "D"
 msgid "Touchpad"
 msgstr "Touchpad"
 
-#: src/client/pytriloquist/gui/main.py:33
+#: src/client/pytriloquist/gui/main.py:34
 msgid "Apps"
 msgstr "Aplic."
 
-#: src/client/pytriloquist/gui/main.py:39
+#: src/client/pytriloquist/gui/main.py:40
 msgid "Input"
 msgstr "Entrada"
 
-#: src/client/pytriloquist/gui/main.py:43
+#: src/client/pytriloquist/gui/main.py:44
 #: src/client/pytriloquist/gui/settings.py:20
 msgid "Settings"
 msgstr "Configurações"
 
-#: src/client/pytriloquist/gui/main.py:44
-#: src/client/pytriloquist/gui/main.py:90
+#: src/client/pytriloquist/gui/main.py:45
+#: src/client/pytriloquist/gui/main.py:95
 msgid "About"
 msgstr "Sobre"
 
-#: src/client/pytriloquist/gui/main.py:45
+#: src/client/pytriloquist/gui/main.py:46
 msgid "Exit"
 msgstr "Sair"
 
-#: src/client/pytriloquist/gui/main.py:67
+#: src/client/pytriloquist/gui/main.py:68
 msgid "Touch not enabled."
 msgstr "Touch não habilitado."
 
-#: src/client/pytriloquist/gui/main.py:83
+#: src/client/pytriloquist/gui/main.py:89
 msgid "Authors:"
 msgstr "Autores:"
 
@@ -147,6 +142,10 @@ msgstr "Canal"
 msgid "Language"
 msgstr "Idioma"
 
+#~ msgid "Edit command"
+#~ msgstr "Alterar comando"
+#~ msgid "Name"
+#~ msgstr "Nome"
 #~ msgid "Mouse"
 #~ msgstr "Mouse"
 #~ msgid "Application name:"
