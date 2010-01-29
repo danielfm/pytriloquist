@@ -56,7 +56,7 @@ def main(*argv):
     options = p.parse_args()[0]
 
     dispatcher = [run_command, mouse_move, mouse_click, mouse_drag, mouse_drop]
-    
+
     socket = server_socket(int(options.channel))
     socket.listen(1)
 
