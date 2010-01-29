@@ -9,12 +9,12 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="744.09448819"
-   height="1052.3622047"
+   width="48"
+   height="48"
    id="svg3642"
    version="1.1"
    inkscape:version="0.47pre4 r22446"
-   sodipodi:docname="New document 5">
+   sodipodi:docname="icon.svg">
   <defs
      id="defs3644">
     <inkscape:perspective
@@ -39,9 +39,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.5"
-     inkscape:cx="322.35274"
-     inkscape:cy="542.05859"
+     inkscape:zoom="8"
+     inkscape:cx="13.653232"
+     inkscape:cy="30.360642"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -58,17 +58,18 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
-     id="layer1">
+     id="layer1"
+     transform="translate(0,-1004.3622)">
     <g
        id="g3663"
-       transform="matrix(20.892449,0,0,20.892449,-2020.9411,-7276.3718)">
+       transform="matrix(1.0929765,0,0,1.0929765,-101.22388,619.81769)">
       <path
          transform="matrix(1.1294976,0,0,0.99837051,95.43945,352.10037)"
          d="m 28.262012,21.725784 c 0,10.491926 -5.069714,18.997313 -11.323522,18.997313 -6.253808,0 -11.3235217,-8.505387 -11.3235217,-18.997313 0,-10.491926 5.0697137,-18.9973122 11.3235217,-18.9973122 6.253808,0 11.323522,8.5053862 11.323522,18.9973122 z"
