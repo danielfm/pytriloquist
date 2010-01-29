@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pytriloquist\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-29 17:17-0300\n"
+"POT-Creation-Date: 2010-01-29 20:12-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Daniel Martins <daniel.tritone@gmail.com>\n"
 "Language-Team: Destaquenet Technology Solutions <contato@destaquenet.com>\n"
@@ -71,12 +71,12 @@ msgid "Back"
 msgstr "Voltar"
 
 #: src/client/pytriloquist/gui/app.py:159
-#: src/client/pytriloquist/gui/input.py:191
+#: src/client/pytriloquist/gui/input.py:219
 msgid "Communication failed."
 msgstr "Falha na comunicação."
 
 #: src/client/pytriloquist/gui/app.py:161
-#: src/client/pytriloquist/gui/input.py:193
+#: src/client/pytriloquist/gui/input.py:221
 msgid "Unexpected error."
 msgstr "Erro inesperado."
 
@@ -93,10 +93,14 @@ msgid "L"
 msgstr "E"
 
 #: src/client/pytriloquist/gui/input.py:91
+msgid "M"
+msgstr "M"
+
+#: src/client/pytriloquist/gui/input.py:117
 msgid "R"
 msgstr "D"
 
-#: src/client/pytriloquist/gui/input.py:135
+#: src/client/pytriloquist/gui/input.py:161
 msgid "Touchpad"
 msgstr "Touchpad"
 

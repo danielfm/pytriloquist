@@ -25,12 +25,23 @@ class InputDialog(gui.Dialog):
         """
         self.canvas = ui.Canvas(event_callback=self.event, redraw_callback=self.redraw, resize_callback=self.resize)
 
-        self.size = self.canvas.size
-        self.width, self.height = self.size
+        # Canvas size
+        self.width, self.height = self.canvas.size
 
+        # Size of each component
         self.btn_size     = 60
         self.gap_size     = 10
         self.scroll_width = 30
+
+        # Instance variables used to keep state
+        self.event_rect = {
+            'moving'         : None,
+            'left_clicking'  : lambda: self.btn_left_box,
+            'middle_clicking': lambda: self.btn_middle_box,
+            'right_clicking' : lambda: self.btn_right_box,
+            'vert_scrolling' : lambda: self.vert_scroll_box,
+            'horiz_scrolling': lambda: self.horiz_scroll_box,
+        }
 
         # Menu callbacks
         self.menu = self.parent.menu
@@ -59,23 +70,29 @@ class InputDialog(gui.Dialog):
     def draw_left_mouse_button(self):
         """Draws the left mouse button.
         """
-        self.canvas.rectangle(self.btn_left_box, 0x000000, None)
+        self.draw_box(self.btn_left_box, _(u"L"))
 
-        # Button text
-        btn_left = _(u"L")
-        btn_left_txt = self.canvas.measure_text(btn_left, font="title")[0]
-        btn_left_txt_width  = btn_left_txt[2] - btn_left_txt[0]
-        btn_left_txt_height = btn_left_txt[3] - btn_left_txt[1]
+    def middle_mouse_button(self):
+        """Defines the location of the middle mouse button on the screen.
+        """
+        btn_middle_x1 = self.btn_left_box[1][0] + self.gap_size/2
+        btn_middle_y1 = self.btn_left_box[0][1]
 
-        btn_left_txt_x = self.btn_left_box[0][0] + self.btn_size/2 - btn_left_txt_width/2
-        btn_left_txt_y = self.btn_left_box[0][1] + self.btn_size/2 + btn_left_txt_height/2
-        self.canvas.text((btn_left_txt_x, btn_left_txt_y), btn_left, font="title")
+        btn_middle_x2 = btn_middle_x1 + self.btn_size/2
+        btn_middle_y2 = btn_middle_y1 + self.btn_size
+
+        self.btn_middle_box = [(btn_middle_x1, btn_middle_y1), (btn_middle_x2, btn_middle_y2)]
+
+    def draw_middle_mouse_button(self):
+        """Draws the middle mouse button.
+        """
+        self.draw_box(self.btn_middle_box, _(u"M"), font=None)
 
     def right_mouse_button(self):
         """Defines the location of the right mouse button on the screen.
         """
-        btn_right_x1 = self.btn_size + self.gap_size * 2
-        btn_right_y1 = self.height - self.btn_size - self.gap_size
+        btn_right_x1 = self.btn_middle_box[1][0] + self.gap_size/2
+        btn_right_y1 = self.btn_middle_box[0][1]
 
         btn_right_x2 = btn_right_x1 + self.btn_size
         btn_right_y2 = btn_right_y1 + self.btn_size
@@ -85,17 +102,7 @@ class InputDialog(gui.Dialog):
     def draw_right_mouse_button(self):
         """Draws the right mouse button.
         """
-        self.canvas.rectangle(self.btn_right_box, 0x000000, None)
-
-        # Button text
-        btn_right = _(u"R")
-        btn_right_txt = self.canvas.measure_text(btn_right, font="title")[0]
-        btn_right_txt_width  = btn_right_txt[2] - btn_right_txt[0]
-        btn_right_txt_height = btn_right_txt[3] - btn_right_txt[1]
-
-        btn_right_txt_x = self.btn_right_box[0][0] + self.btn_size/2 - btn_right_txt_width/2
-        btn_right_txt_y = self.btn_right_box[0][1] + self.btn_size/2 + btn_right_txt_height/2
-        self.canvas.text((btn_right_txt_x, btn_right_txt_y), btn_right, font="title")
+        self.draw_box(self.btn_right_box, _(u"R"))
 
     def vert_scroll(self):
         """Defines the location of the vertical scroll on the screen.
@@ -130,22 +137,30 @@ class InputDialog(gui.Dialog):
     def draw_touchpad(self):
         """Draws the touchpad background.
         """
-        self.canvas.clear()
+        box = [(0, 0), (self.width, self.height)]
+        self.draw_box(box, _("Touchpad"), fill=0xbbbbbb, border=None, bg=0xffffff)
 
-        touchpad     = _(u"Touchpad")
-        touchpad_txt = self.canvas.measure_text(touchpad, font="title")[0]
+    def draw_box(self, rect, text, font="title", fill=0x000000, border=0x000000, bg=None):
+        """Draw a button.
+        """
+        self.canvas.rectangle(rect, border, bg)
 
-        touchpad_txt_width  = touchpad_txt[2] - touchpad_txt[0]
-        touchpad_txt_height = touchpad_txt[3] - touchpad_txt[1]
+        btn_txt = self.canvas.measure_text(text, font=font)[0]
+        btn_txt_width  = btn_txt[2] - btn_txt[0]
+        btn_txt_height = btn_txt[3] - btn_txt[1]
 
-        touchpad_txt_x = self.width/2 - touchpad_txt_width/2
-        touchpad_txt_y = self.height/2 + touchpad_txt_height/2
-        self.canvas.text((touchpad_txt_x, touchpad_txt_y), touchpad, font="title", fill=0xbbbbbb)
+        width  = rect[1][0] - rect[0][0]
+        height = rect[1][1] - rect[0][1]
+
+        btn_txt_x = rect[0][0] + width/2 - btn_txt_width/2
+        btn_txt_y = rect[0][1] + height/2 + btn_txt_height/2
+        self.canvas.text((btn_txt_x, btn_txt_y), text, fill=fill, font=font)
 
     def place_components(self):
         """Places the components on the screen.
         """
         self.left_mouse_button()
+        self.middle_mouse_button()
         self.right_mouse_button()
         self.vert_scroll()
         self.horiz_scroll()
@@ -155,6 +170,7 @@ class InputDialog(gui.Dialog):
         """
         self.draw_touchpad()
         self.draw_left_mouse_button()
+        self.draw_middle_mouse_button()
         self.draw_right_mouse_button()
         self.draw_vert_scroll()
         self.draw_horiz_scroll()
@@ -192,23 +208,20 @@ class InputDialog(gui.Dialog):
         except:
             ui.note(_(u"Unexpected error."), 'error')
 
+    def reset_state_vars(self):
+        """Resets touchpad state.
+        """
+        for state in self.event_rect.keys():
+            setattr(self, state, False)
+
     def handle_click(self, x, y):
         """Handles the mouse click.
         """
-        self.left_clicking   = False
-        self.right_clicking  = False
-        self.moving          = False
-        self.vert_scrolling  = False
-        self.horiz_scrolling = False
-
-        if self.is_inside(self.btn_left_box, (x, y)):
-            self.left_clicking = True
-        elif self.is_inside(self.btn_right_box, (x, y)):
-            self.right_clicking = True
-        elif self.is_inside(self.vert_scroll_box, (x, y)):
-            self.vert_scrolling = True
-        elif self.is_inside(self.horiz_scroll_box, (x, y)):
-            self.horiz_scrolling = True
+        self.reset_state_vars()
+        for state, rect_fn in self.event_rect.items():
+            if rect_fn and self.is_inside(rect_fn(), (x, y)):
+                setattr(self, state, True)
+                break
         else:
             self.moving = True
             self.old_x, self.old_y = x, y
@@ -243,19 +256,17 @@ class InputDialog(gui.Dialog):
     def handle_release(self, x, y):
         """Handles the mouse release.
         """
-        # Left click or drag gesture
-        if self.left_clicking:
-            if self.is_inside(self.btn_left_box, (x, y)):
-                self.send_command(2, Const.MOUSE_LEFT_BUTTON)
-            else:
-                self.send_command(3, Const.MOUSE_LEFT_BUTTON)
+        button_state = [
+            (self.left_clicking  , Const.MOUSE_LEFT_BUTTON  , self.btn_left_box),
+            (self.middle_clicking, Const.MOUSE_MIDDLE_BUTTON, self.btn_middle_box),
+            (self.right_clicking , Const.MOUSE_RIGHT_BUTTON , self.btn_right_box),
+        ]
 
-        # Right click or drag gesture
-        if self.right_clicking:
-            if self.is_inside(self.btn_right_box, (x, y)):
-                self.send_command(2, Const.MOUSE_RIGHT_BUTTON)
+        for button, box in [s[1:] for s in button_state if s[0]]:
+            if self.is_inside(box, (x, y)):
+                self.send_command(2, button)
             else:
-                self.send_command(3, Const.MOUSE_RIGHT_BUTTON)
+                self.send_command(3, button)
 
     def event(self, event):
         """Canvas event callback.
@@ -274,17 +285,14 @@ class InputDialog(gui.Dialog):
         if event['type'] == key_codes.EButton1Down:
             self.handle_click(x, y)
 
-        # Moving mouse pointer
-        if self.moving and event['type'] == key_codes.EDrag:
-            self.handle_move(x, y)
-
-        # Using the vertical scroll bar
-        if self.vert_scrolling and event['type'] == key_codes.EDrag:
-            self.handle_vert_scroll(y)
-
-        # Using the horizontal scroll bar
-        if self.horiz_scrolling and event['type'] == key_codes.EDrag:
-            self.handle_horiz_scroll(x)
+        # Dragging
+        if event['type'] == key_codes.EDrag:
+            if self.moving:
+                self.handle_move(x, y)
+            elif self.vert_scrolling:
+                self.handle_vert_scroll(y)
+            elif self.horiz_scrolling:
+                self.handle_horiz_scroll(x)
 
         # Finished touch gesture
         if event['type'] == key_codes.EButton1Up:
