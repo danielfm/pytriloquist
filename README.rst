@@ -88,7 +88,7 @@ on the server.
 Touchpad Gestures
 '''''''''''''''''
 
-The left and right buttons are located on the bottom-left corner of the screen,
+The three mouse buttons are located on the bottom-left corner of the screen,
 and the light gray rectangles are the scrollbars.
 
 It works pretty much like a laptop's touchpad. The only exception is the drag
