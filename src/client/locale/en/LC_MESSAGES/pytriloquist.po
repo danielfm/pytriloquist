@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pytriloquist\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-29 20:12-0300\n"
+"POT-Creation-Date: 2010-01-30 17:59-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Daniel Martins <daniel.tritone@gmail.com>\n"
 "Language-Team: Destaquenet Technology Solutions <contato@destaquenet.com>\n"
@@ -71,12 +71,12 @@ msgid "Back"
 msgstr ""
 
 #: src/client/pytriloquist/gui/app.py:159
-#: src/client/pytriloquist/gui/input.py:219
+#: src/client/pytriloquist/gui/input.py:210
 msgid "Communication failed."
 msgstr ""
 
 #: src/client/pytriloquist/gui/app.py:161
-#: src/client/pytriloquist/gui/input.py:221
+#: src/client/pytriloquist/gui/input.py:212
 msgid "Unexpected error."
 msgstr ""
 
@@ -88,19 +88,19 @@ msgstr ""
 msgid "Command line"
 msgstr ""
 
-#: src/client/pytriloquist/gui/input.py:65
+#: src/client/pytriloquist/gui/input.py:76
 msgid "L"
 msgstr ""
 
-#: src/client/pytriloquist/gui/input.py:91
+#: src/client/pytriloquist/gui/input.py:92
 msgid "M"
 msgstr ""
 
-#: src/client/pytriloquist/gui/input.py:117
+#: src/client/pytriloquist/gui/input.py:108
 msgid "R"
 msgstr ""
 
-#: src/client/pytriloquist/gui/input.py:161
+#: src/client/pytriloquist/gui/input.py:144
 msgid "Touchpad"
 msgstr ""
 
@@ -135,7 +135,7 @@ msgid "Authors:"
 msgstr ""
 
 #: src/client/pytriloquist/gui/settings.py:37
-msgid "Bluetooth Device"
+msgid "Server address"
 msgstr ""
 
 #: src/client/pytriloquist/gui/settings.py:38

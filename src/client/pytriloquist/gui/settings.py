@@ -34,9 +34,9 @@ class SettingsDialog(Dialog):
 
         # Form fields
         self.fields = [
-            (_(u"Bluetooth Device"), "text"  , device),
-            (_(u"Channel")         , "number", channel),
-            (_(u"Language")        , "combo" , (locales, locale)),
+            (_(u"Server address"), "text"  , device),
+            (_(u"Channel")       , "number", channel),
+            (_(u"Language")      , "combo" , (locales, locale)),
         ]
 
         # Adjust flags
@@ -56,13 +56,13 @@ class SettingsDialog(Dialog):
         self.parent.execute(force=self.form_saved)
 
     def get_bt_device(self):
-        """Gets the bluetooth device address from the saved form.
+        """Gets the bluetooth server address from the saved form.
         """
         if self.form_saved:
             return self.saved_data[0][2]
 
     def get_bt_channel(self):
-        """Gets the bluetooth device channel from the saved form.
+        """Gets the bluetooth server channel from the saved form.
         """
         if self.form_saved:
             return self.saved_data[1][2]
