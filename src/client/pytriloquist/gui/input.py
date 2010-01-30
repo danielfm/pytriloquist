@@ -33,7 +33,7 @@ class InputDialog(gui.Dialog):
         self.gap_size     = 10
         self.scroll_width = 30
 
-        # Instance variables used to keep state
+        # State associated with screen rects
         self.event_rect = {
             'moving'         : None,
             'left_clicking'  : lambda: self.btn_left_box,
@@ -42,6 +42,9 @@ class InputDialog(gui.Dialog):
             'vert_scrolling' : lambda: self.vert_scroll_box,
             'horiz_scrolling': lambda: self.horiz_scroll_box,
         }
+
+        # Keeps the mouse button used in dragging or zero
+        self.dragging = 0
 
         # Menu callbacks
         self.menu = self.parent.menu
@@ -264,8 +267,13 @@ class InputDialog(gui.Dialog):
 
         for button, box in [s[1:] for s in button_state if s[0]]:
             if self.is_inside(box, (x, y)):
+                if self.dragging:
+                    old_button = self.dragging
+                    self.dragging = 0
+                    self.send_command(4, old_button)
                 self.send_command(2, button)
             else:
+                self.dragging = button
                 self.send_command(3, button)
 
     def event(self, event):

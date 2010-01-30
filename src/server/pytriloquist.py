@@ -9,7 +9,7 @@ import subprocess
 MOUSE_MOVE  = 'xte "mousermove %s %s"' # x, y
 MOUSE_CLICK = 'xte "mouseclick %s"'    # mouse button
 MOUSE_DRAG  = 'xte "mousedown %s"'     # mouse button
-MOUSE_DROP  = 'ste "mouseup %s"'       # mouse button
+MOUSE_DROP  = 'xte "mouseup %s"'       # mouse button
 
 
 def server_socket(channel):
