@@ -4,6 +4,13 @@
 from bluetooth import *
 import subprocess
 
+# Try to use pynotify to notify server events
+try:
+    import pynotify
+    pynotify.init("Pytriloquist")
+    PYNOTIFY = True
+except ImportError:
+    PYNOTIFY = False
 
 # Mouse commands
 MOUSE_MOVE  = 'xte "mousermove %s %s"' # x, y
@@ -11,6 +18,14 @@ MOUSE_CLICK = 'xte "mouseclick %s"'    # mouse button
 MOUSE_DRAG  = 'xte "mousedown %s"'     # mouse button
 MOUSE_DROP  = 'xte "mouseup %s"'       # mouse button
 
+
+def notify(message, title="Pytriloquist", icon=None):
+    """Displays a notification message.
+    """
+    if PYNOTIFY:
+        pynotify.Notification(title, message, icon).show()
+    else:
+        print title + ":", message
 
 def server_socket(channel):
     """Creates a Bluetooth RFCOMM server socket bound to the given channel.
@@ -61,21 +76,21 @@ def main(*argv):
     socket.listen(1)
 
     while True:
-        print "Waiting for connections..."
+        notify("Waiting for connections", icon="gtk-refresh")
         (client, addr) = socket.accept()
 
         try:
             cmd = None
-            print "Accepted connection from " + addr[0]
+            notify("%s connected" % addr[0], title="Connection accepted", icon="gtk-dialog-info")
             while True:
                 data = client.recv(512)
                 cmd_type = int(data[0])
                 cmd = data[1:].split("\n")[0]
                 dispatcher[cmd_type](cmd)
         except BluetoothError:
-            print "Connection closed by peer"
+            notify("%s disconnected" % addr[0], title="Connection closed", icon="gtk-stop")
         except:
-            print "Unexpected error"
+            notify("Unexpected error", icon="gtk-dialog-error")
 
 
 if __name__ == "__main__":
