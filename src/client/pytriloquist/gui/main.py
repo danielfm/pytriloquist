@@ -10,9 +10,9 @@ from pytriloquist.gui.app      import ApplicationsDialog
 from pytriloquist.gui.input    import InputDialog
 
 
-class MainDialog(Dialog):
+class IntroDialog(Dialog):
     """
-    This dialog displays the list of modes.
+    Application starting point.
     """
     def __init__(self, app):
         Dialog.__init__(self, app)
@@ -25,43 +25,34 @@ class MainDialog(Dialog):
     def init_ui(self):
         """Initializes the user interface.
         """
+        self.main_dialog     = MainDialog(self.app, self)
         self.settings_dialog = SettingsDialog(self.app, self)
-        self.apps_dialog     = ApplicationsDialog(self.app, self)
 
-        # Tabs
-        self.tabs = [
-            (_(u"Apps"), self.open_apps),
+        self.menu = [
+            (_(u"About"), self.about),
+            (_(u"Exit") , self.app.exit),
         ]
 
-        self.menu_connect    = (_(u"Connect"), self.connect)
-        self.menu_disconnect = (_(u"Disconnect"), self.disconnect)
-
-        # Only works with touch-enabled devices
-        if ui.touch_enabled():
-            self.input_dialog = InputDialog(self.app, self)
-            self.tabs.append((_(u"Input"), self.open_input))
-
-    def get_menu(self):
-        """Gets the application menus.
-        """
-        connect = self.menu_connect
-        if self.app.btclient.is_connected():
-            connect = self.menu_disconnect
-
-        return [
-            connect,
-            (_(u"Settings"), self.show_settings),
-            (_(u"About")   , self.show_about),
-            (_(u"Exit")    , self.app.exit),
+        self.options = [
+            (1, _("Connect") , self.connect),
+            (2, _("Settings"), self.settings)
         ]
+        self.opt_list = ui.Listbox([opt[1] for opt in self.options], self.opt_list_observe)
 
     def display(self):
         """Displays the dialog on the device.
         """
         ui.app.screen = "normal"
-        ui.app.set_tabs([t[0] for t in self.tabs], self.tab_handler)
+        ui.app.set_tabs([], None)
+        ui.app.menu = self.menu
+        ui.app.body = self.opt_list
         ui.app.exit_key_handler = self.app.exit
-        self.tab_handler(0)
+
+    def opt_list_observe(self):
+        """Function called when a mode is selected from the list.
+        """
+        selected = self.options[self.opt_list.current()]
+        selected[2]()
 
     def connect(self):
         """Connects to the server.
@@ -71,7 +62,73 @@ class MainDialog(Dialog):
         except BluetoothError, e:
             ui.note(_(e.msg), "error")
         else:
-            self.replace_menu(self.menu_connect, self.menu_disconnect)
+            self.main_dialog.execute()
+
+    def settings(self):
+        """Opens the Settings dialog.
+        """
+        self.settings_dialog.execute()
+
+    def about(self):
+        """Opens the About dialog.
+        """
+        data = {
+            "title"  : Const.APP_TITLE,
+            "version": Const.APP_VERSION,
+            "year"   : Const.APP_YEAR,
+            "url"    : Const.APP_URL,
+            "author" : Const.APP_AUTHOR,
+            "lauthor": _(u"Authors:"),
+        }
+        text = u"%(title)s v%(version)s (c) %(year)s\n" \
+                "%(url)s\n\n"                           \
+                "%(lauthor)s\n"                         \
+                "%(author)s" % data
+        globalui.global_msg_query(text, _(u"About"), 0)
+
+
+class MainDialog(Dialog):
+    """
+    This dialog displays the list of applications and input methods.
+    """
+    def __init__(self, app, parent):
+        Dialog.__init__(self, app, parent)
+
+    def get_title(self):
+        """Returns the dialog title.
+        """
+        return Const.APP_TITLE
+
+    def init_ui(self):
+        """Initializes the user interface.
+        """
+        self.tabs = [
+            (_(u"Apps"), self.open_apps),
+        ]
+
+        self.menu = [
+            (_(u"Disconnect"), self.back)
+        ]
+
+        # Dialogs
+        self.apps_dialog = ApplicationsDialog(self.app, self)
+        if ui.touch_enabled():
+            # Only works with touch-enabled devices
+            self.input_dialog = InputDialog(self.app, self)
+            self.tabs.append((_(u"Input"), self.open_input))
+
+    def display(self):
+        """Displays the dialog on the device.
+        """
+        ui.app.set_tabs([t[0] for t in self.tabs], self.tab_handler)
+        ui.app.exit_key_handler = self.app.exit
+        self.tab_handler(0)
+
+    def back(self):
+        """Executes the parent dialog.
+        """
+        Dialog.back(self)
+        self.disconnect()
 
     def disconnect(self):
         """Disconnects from the server.
@@ -80,17 +137,6 @@ class MainDialog(Dialog):
             self.app.btclient.close()
         except BluetoothError, e:
             ui.note(_(e.msg), "error")
-        finally:
-            self.replace_menu(self.menu_disconnect, self.menu_connect)
-
-    def replace_menu(self, old, new):
-        """Replaces a menu entry by another.
-        """
-        menu = ui.app.menu
-        index = menu.index(old)
-        if index >= 0:
-            menu[index] = new
-            ui.app.menu = menu
 
     def open_apps(self):
         """Opens the applications dialog.
@@ -109,25 +155,3 @@ class MainDialog(Dialog):
         """Handles tab events.
         """
         [t[1] for t in self.tabs][index]()
-
-    def show_settings(self):
-        """Shows the settings dialog.
-        """
-        self.settings_dialog.execute()
-
-    def show_about(self):
-        """Shows the about dialog.
-        """
-        data = {
-            "title"  : Const.APP_TITLE,
-            "version": Const.APP_VERSION,
-            "year"   : Const.APP_YEAR,
-            "url"    : Const.APP_URL,
-            "author" : Const.APP_AUTHOR,
-            "lauthor": _(u"Authors:"),
-        }
-        text = u"%(title)s v%(version)s (c) %(year)s\n" \
-                "%(url)s\n\n"                           \
-                "%(lauthor)s\n"                         \
-                "%(author)s" % data
-        globalui.global_msg_query(text, _(u"About"), 0)

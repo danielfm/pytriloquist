@@ -84,9 +84,5 @@ class SettingsDialog(Dialog):
             self.get_locale()
         ))
 
-        # Update the locale and close the bluetooth connection, so the new
-        # settings are used from now on
         self.app.set_locale(self.get_locale())
-        self.app.btclient.close()
-
         return True

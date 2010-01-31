@@ -22,35 +22,33 @@ class ApplicationsDialog(Dialog):
         """
         # Load the list of applications
         self.apps = []
-
         view = self.app.dbm.query(Const.DB_APPLICATIONS_SELECT)
         for i in range(view.count_line()):
             view.get_line()
             self.apps.append((view.col(1), view.col(2)))
             view.next_line()
 
+        # Menu
+        self.menu = [
+            (_(u"New")   , self.new_app),
+            (_(u"Delete"), self.delete_app),
+            (_(u"Rename"), self.rename_app),
+        ]
+        self.menu.extend(self.parent.menu)
+
         # Cannot display an empty Listbox
         if not self.apps:
             self.apps.append((-1, _("New")))
-
         self.app_list = ui.Listbox([app[1] for app in self.apps], self.app_list_observe)
 
     def display(self):
         """Displays the dialog on the device.
         """
         ui.app.body = self.app_list
-
-        # Dialog menu
-        menu = [
-            (_(u"New")   , self.new_app),
-            (_(u"Delete"), self.delete_app),
-            (_(u"Rename"), self.rename_app),
-        ]
-        menu.extend(self.parent.get_menu())
-        ui.app.menu = menu
+        ui.app.menu = self.menu
 
     def app_list_observe(self):
-        """Function called when a mode is selected from the list.
+        """Function called when an application is selected from the list.
         """
         selected = self.apps[self.app_list.current()]
         if selected[0] == -1:
@@ -122,6 +120,14 @@ class CommandsDialog(Dialog):
             self.cmds.append((view.col(1), view.col(2), view.col(3), view.col(4)))
             view.next_line()
 
+        # Menu
+        self.menu = [
+            (_(u"New")   , self.new_cmd),
+            (_(u"Delete"), self.delete_cmd),
+            (_(u"Edit")  , self.edit_cmd),
+            (_(u"Back")  , self.back),
+        ]
+
         # Cannot display an empty Listbox
         if not self.cmds:
             self.cmds.append((-1, -1, _("New"), ""))
@@ -132,12 +138,7 @@ class CommandsDialog(Dialog):
         """Displays the dialog on the device.
         """
         ui.app.body = self.cmd_list
-        ui.app.menu = [
-            (_(u"New command"), self.new_cmd),
-            (_(u"Delete")     , self.delete_cmd),
-            (_(u"Edit")       , self.edit_cmd),
-            (_(u"Back")       , self.back),
-        ]
+        ui.app.menu = self.menu
 
     def cmd_list_observe(self):
         """Function called when a command is selected from the list.

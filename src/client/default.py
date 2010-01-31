@@ -1,8 +1,8 @@
 from pytriloquist import App
-from pytriloquist.gui.main import MainDialog
+from pytriloquist.gui.main import IntroDialog
 
 # Main loop
 if __name__ == '__main__':
     app  = App()
-    main = MainDialog(app)
+    main = IntroDialog(app)
     app.run(main)

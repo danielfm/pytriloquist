@@ -49,7 +49,7 @@ class InputDialog(gui.Dialog):
         """
         ui.app.directional_pad = False
         ui.app.body = self.canvas
-        ui.app.menu = self.parent.get_menu()
+        ui.app.menu = self.parent.menu
         self.redraw(None)
 
     def left_mouse_button(self):
