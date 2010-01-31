@@ -1,7 +1,7 @@
 import appuifw as ui
-import btsocket as socket
 
 from pytriloquist import Const
+from pytriloquist.btclient import BluetoothError
 from pytriloquist.gui import Dialog
 
 
@@ -10,8 +10,6 @@ class ApplicationsDialog(Dialog):
     Dialog used to manage applications.
     """
     def __init__(self, app, parent):
-        """Initializes the dialog.
-        """
         Dialog.__init__(self, app, parent)
 
     def get_title(self):
@@ -37,19 +35,19 @@ class ApplicationsDialog(Dialog):
 
         self.app_list = ui.Listbox([app[1] for app in self.apps], self.app_list_observe)
 
-        # Menu callbacks
-        self.menu = [
-            (_(u"New")   , self.new_app),
-            (_(u"Delete"), self.delete_app),
-            (_(u"Rename"), self.rename_app),
-        ]
-        self.menu.extend(self.parent.menu)
-
     def display(self):
         """Displays the dialog on the device.
         """
         ui.app.body = self.app_list
-        ui.app.menu = self.menu
+
+        # Dialog menu
+        menu = [
+            (_(u"New")   , self.new_app),
+            (_(u"Delete"), self.delete_app),
+            (_(u"Rename"), self.rename_app),
+        ]
+        menu.extend(self.parent.get_menu())
+        ui.app.menu = menu
 
     def app_list_observe(self):
         """Function called when a mode is selected from the list.
@@ -104,8 +102,6 @@ class CommandsDialog(Dialog):
     Dialog used to manage the commands of an application.
     """
     def __init__(self, app_data, app, parent):
-        """Initializes the dialog.
-        """
         Dialog.__init__(self, app, parent)
         self.app_data = app_data
 
@@ -132,19 +128,16 @@ class CommandsDialog(Dialog):
 
         self.cmd_list = ui.Listbox([cmd[2] for cmd in self.cmds], self.cmd_list_observe)
 
-        # Menu callbacks
-        self.menu = [
+    def display(self):
+        """Displays the dialog on the device.
+        """
+        ui.app.body = self.cmd_list
+        ui.app.menu = [
             (_(u"New command"), self.new_cmd),
             (_(u"Delete")     , self.delete_cmd),
             (_(u"Edit")       , self.edit_cmd),
             (_(u"Back")       , self.back),
         ]
-
-    def display(self):
-        """Displays the dialog on the device.
-        """
-        ui.app.body = self.cmd_list
-        ui.app.menu = self.menu
 
     def cmd_list_observe(self):
         """Function called when a command is selected from the list.
@@ -155,10 +148,8 @@ class CommandsDialog(Dialog):
         else:
             try:
                 self.app.btclient.send_command(0, selected[3])
-            except socket.error:
-                ui.note(_(u"Communication failed."), 'error')
-            except:
-                ui.note(_(u"Unexpected error."), 'error')
+            except BluetoothError, e:
+                ui.note(_(e.msg), "error")
 
     def new_cmd(self):
         """Adds a new command.
@@ -189,13 +180,12 @@ class CommandsDialog(Dialog):
             else:
                 ui.note(_(u"Cannot edit an action."), "error")
 
+
 class EditCommandDialog(Dialog):
     """
     Dialog used to add and edit application commands.
     """
     def __init__(self, app_data, command_data, app, parent):
-        """Initializes the dialog.
-        """
         Dialog.__init__(self, app, parent)
         self.form_saved = False
 

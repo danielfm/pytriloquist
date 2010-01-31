@@ -1,8 +1,8 @@
 import appuifw as ui
-import btsocket as socket
 import key_codes
 
 from pytriloquist import Const, gui
+from pytriloquist.btclient import BluetoothError
 
 
 class InputDialog(gui.Dialog):
@@ -10,8 +10,6 @@ class InputDialog(gui.Dialog):
     Dialog used to send input commands.
     """
     def __init__(self, app, parent):
-        """Initializes the dialog.
-        """
         gui.Dialog.__init__(self, app, parent)
         self.old_x = self.old_y = 0
 
@@ -46,16 +44,12 @@ class InputDialog(gui.Dialog):
         # Keeps the mouse button used in dragging or zero
         self.dragging = 0
 
-        # Menu callbacks
-        self.menu = self.parent.menu
-
     def display(self):
         """Displays the dialog on the device.
         """
         ui.app.directional_pad = False
         ui.app.body = self.canvas
-        ui.app.menu = self.menu
-
+        ui.app.menu = self.parent.get_menu()
         self.redraw(None)
 
     def left_mouse_button(self):
@@ -206,10 +200,8 @@ class InputDialog(gui.Dialog):
         """
         try:
             self.app.btclient.send_command(cmd_type, cmd)
-        except socket.error:
-            ui.note(_(u"Communication failed."), 'error')
-        except:
-            ui.note(_(u"Unexpected error."), 'error')
+        except BluetoothError, e:
+            ui.note(_(e.msg), "error")
 
     def reset_state_vars(self):
         """Resets touchpad state.

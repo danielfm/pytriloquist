@@ -1,32 +1,40 @@
 import btsocket as socket
-import appuifw as ui
+
+
+# For deferred translation
+_ = lambda s:s
+
 
 class BluetoothClient(object):
     """Communication over Bluetooth.
     """
     def __init__(self, app):
-        """Initializes a new instance.
-        """
         self.socket = None
         self.app = app
+
+    def is_connected(self):
+        """Returns whether the client is connected.
+        """
+        return self.socket != None
 
     def connect(self):
         """Connects to the server.
         """
         try:
-            if not self.socket:
+            if not self.is_connected():
                 server_addr = self.app.get_settings()[:2]
                 self.socket = socket.socket(socket.AF_BT, socket.SOCK_STREAM)
+                self.socket.setblocking(False)
                 self.socket.connect(server_addr)
         except:
             self.close()
-            raise
+            raise BluetoothError(_(u"Cannot connect."))
 
     def close(self):
         """Closes the connection.
         """
         try:
-            if self.socket:
+            if self.is_connected():
                 self.socket.close()
         except:
             pass
@@ -36,10 +44,19 @@ class BluetoothClient(object):
     def send_command(self, cmd_id, cmd):
         """Sends a command to the server.
         """
-        self.connect()
+        if not self.is_connected():
+            raise BluetoothError(_(u"Not connected."))
         try:
-            if self.socket:
-                self.socket.send(str(cmd_id) + cmd + "\n")
+            self.socket.send(str(cmd_id) + cmd + "\n")
+        except socket.error:
+            raise BluetoothError(_(u"Communication error."))
         except:
-            self.close()
-            raise
+            raise BluetoothError(_(u"Unexpected error."))
+
+
+class BluetoothError(Exception):
+    """
+    Generic Bluetooth error.
+    """
+    def __init__(self, msg):
+        self.msg = msg

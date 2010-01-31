@@ -2,8 +2,9 @@ import appuifw as ui
 import globalui
 
 from pytriloquist import Const
-from pytriloquist.gui import Dialog
+from pytriloquist.btclient import BluetoothError
 
+from pytriloquist.gui import Dialog
 from pytriloquist.gui.settings import SettingsDialog
 from pytriloquist.gui.app      import ApplicationsDialog
 from pytriloquist.gui.input    import InputDialog
@@ -14,8 +15,6 @@ class MainDialog(Dialog):
     This dialog displays the list of modes.
     """
     def __init__(self, app):
-        """Initializes this dialog.
-        """
         Dialog.__init__(self, app)
 
     def get_title(self):
@@ -34,13 +33,23 @@ class MainDialog(Dialog):
             (_(u"Apps"), self.open_apps),
         ]
 
+        self.menu_connect    = (_(u"Connect"), self.connect)
+        self.menu_disconnect = (_(u"Disconnect"), self.disconnect)
+
         # Only works with touch-enabled devices
         if ui.touch_enabled():
             self.input_dialog = InputDialog(self.app, self)
             self.tabs.append((_(u"Input"), self.open_input))
 
-        # Menu callbacks
-        self.menu = [
+    def get_menu(self):
+        """Gets the application menus.
+        """
+        connect = self.menu_connect
+        if self.app.btclient.is_connected():
+            connect = self.menu_disconnect
+
+        return [
+            connect,
             (_(u"Settings"), self.show_settings),
             (_(u"About")   , self.show_about),
             (_(u"Exit")    , self.app.exit),
@@ -53,6 +62,35 @@ class MainDialog(Dialog):
         ui.app.set_tabs([t[0] for t in self.tabs], self.tab_handler)
         ui.app.exit_key_handler = self.app.exit
         self.tab_handler(0)
+
+    def connect(self):
+        """Connects to the server.
+        """
+        try:
+            self.app.btclient.connect()
+        except BluetoothError, e:
+            ui.note(_(e.msg), "error")
+        else:
+            self.replace_menu(self.menu_connect, self.menu_disconnect)
+
+    def disconnect(self):
+        """Disconnects from the server.
+        """
+        try:
+            self.app.btclient.close()
+        except BluetoothError, e:
+            ui.note(_(e.msg), "error")
+        finally:
+            self.replace_menu(self.menu_disconnect, self.menu_connect)
+
+    def replace_menu(self, old, new):
+        """Replaces a menu entry by another.
+        """
+        menu = ui.app.menu
+        index = menu.index(old)
+        if index >= 0:
+            menu[index] = new
+            ui.app.menu = menu
 
     def open_apps(self):
         """Opens the applications dialog.

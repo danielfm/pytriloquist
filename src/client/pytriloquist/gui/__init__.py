@@ -3,8 +3,6 @@ class Dialog(object):
     Dialog base class.
     """
     def __init__(self, app, parent=None):
-        """Initializes a new dialog.
-        """
         self.initialized = False
         self.app, self.parent = app, parent
 

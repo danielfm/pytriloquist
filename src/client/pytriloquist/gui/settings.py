@@ -9,8 +9,6 @@ class SettingsDialog(Dialog):
     Dialog used to configure the application.
     """
     def __init__(self, app, parent):
-        """Initializes the dialog.
-        """
         Dialog.__init__(self, app, parent)
         self.form_saved = False
 
