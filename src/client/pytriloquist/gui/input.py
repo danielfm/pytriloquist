@@ -176,7 +176,7 @@ class InputDialog(gui.Dialog):
         """Canvas redraw callback.
         """
         self.place_components()
-        self.draw_components()        
+        self.draw_components()
 
     def resize(self, wh):
         """Canvas resize callback.

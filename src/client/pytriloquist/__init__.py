@@ -78,7 +78,7 @@ class App(object):
         self.lock     = e32.Ao_lock()
         self.btclient = btclient.BluetoothClient(self)
         self.dbm      = db.DBManager(Const.DB_FILE)
-        self._open_or_create_db()
+        self._open_db()
         self.set_locale()
 
     def get_title(self):
@@ -115,8 +115,8 @@ class App(object):
         """
         return self.locale
 
-    def _open_or_create_db(self):
-        """
+    def _open_db(self):
+        """Opens the app database. Create the database if it doesn't exist.
         """
         if self.dbm.open_or_create():
             self.dbm.execute_atomic([

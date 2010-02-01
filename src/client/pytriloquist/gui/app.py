@@ -188,9 +188,8 @@ class EditCommandDialog(Dialog):
     """
     def __init__(self, app_data, command_data, app, parent):
         Dialog.__init__(self, app, parent)
-        self.form_saved = False
-
-        self.app_data = app_data
+        self.form_saved   = False
+        self.app_data     = app_data
         self.command_data = command_data
 
     def get_title(self):
