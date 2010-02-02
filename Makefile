@@ -20,8 +20,8 @@ sis:
 	--appname="$(SIS_APPNAME)" --caption="$(SIS_CAPTION)" --shortcaption="$(SIS_SCAPTION)" \
 	--vendor="$(SIS_VENDOR)" --uid="$(SIS_UID)" --lang="$(SIS_LANG)" --caps="$(SIS_CAPS)"  \
 	"$(SRC_CLI_DIR)" "$(SIS_FILE).sis"
+	mv "$(SIS_FILE).sis" "$(SIS_FILE).sisx"
 
 sis-unsigned: sis
-	cp $(SIS_FILE).sis $(SIS_FILE)-unsigned.sis
-	cd $(PYS60_DIR) ; \
-	python ensymble.py signsis --unsign "$(SIS_FILE)-unsigned.sis"
+	cp "$(SIS_FILE).sisx" "$(SIS_FILE).sis"
+	cd $(PYS60_DIR) ; python ensymble.py signsis --unsign "$(SIS_FILE).sis"

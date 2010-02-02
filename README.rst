@@ -62,12 +62,12 @@ extract `Python for S60`_ to your computer.
 Then, open ``Makeconf`` and change the ``PYS60_DIR`` variable to make it point
 to that directory.
 
-Finally, run ``make`` to build two .sis packages:
+Finally, run ``make`` to build two packages:
 
-1. Unsigned package;
-2. Package signed with the built-in certificates.
+1. A .sis package (unsigned);
+2. A .sisx package (signed with the built-in certificates).
 
-Just upload the appropriate .sis package to your device to install it.
+Just upload the appropriate package to your device to install it.
 
 
 Usage
