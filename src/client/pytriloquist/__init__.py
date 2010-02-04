@@ -36,7 +36,7 @@ class Const(object):
     }
 
     # Database tables
-    DB_FILE               = ENV_WORKING_DRIVE + ur"\data\pytriloquist.db"
+    DB_FILE               = ENV_WORKING_DRIVE + ur"\pytriloquist.db"
     DB_TABLE_APPLICATIONS = u"CREATE TABLE applications (id COUNTER, name VARCHAR)"
     DB_TABLE_COMMANDS     = u"CREATE TABLE commands (id COUNTER, app_id UNSIGNED INTEGER, name VARCHAR, command VARCHAR)"
     DB_TABLE_SETTINGS     = u"CREATE TABLE settings (id UNSIGNED INTEGER, device VARCHAR, channel UNSIGNED TINYINT, locale VARCHAR)"
