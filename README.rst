@@ -40,7 +40,7 @@ Usage
 
 Run the following command to start up the server::
 
-    $ python src/server/pytriloquist.py [-c CHANNEL]
+    $ python src/server/pytriloquist.py [-c CONFIG_MODULE]
 
 
 Client App
