@@ -1,5 +1,5 @@
 # Download PythonForS60 at http://garage.maemo.org/projects/pys60
-PYS60_DIR = /path/to/PythonForS60
+PYS60_DIR = /home/daniel/Workspace/python/lib/s60/PythonForS60
 
 CWD = $(shell pwd)
 
