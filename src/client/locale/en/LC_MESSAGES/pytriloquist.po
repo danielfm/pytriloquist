@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pytriloquist\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-31 16:25-0300\n"
+"POT-Creation-Date: 2010-02-19 22:46-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Daniel Martins <daniel.tritone@gmail.com>\n"
 "Language-Team: Destaquenet Technology Solutions <contato@destaquenet.com>\n"
@@ -38,56 +38,77 @@ msgstr ""
 msgid "English"
 msgstr ""
 
+#: src/client/pytriloquist/__init__.py:40
+#: src/client/pytriloquist/gui/main.py:112
+msgid "Automatic"
+msgstr ""
+
+#: src/client/pytriloquist/__init__.py:41
+#: src/client/pytriloquist/gui/main.py:113
+msgid "Landscape"
+msgstr ""
+
+#: src/client/pytriloquist/__init__.py:42
+#: src/client/pytriloquist/gui/main.py:114
+msgid "Portrait"
+msgstr ""
+
 #: src/client/pytriloquist/gui/app.py:33
-#: src/client/pytriloquist/gui/app.py:41
-#: src/client/pytriloquist/gui/app.py:125
-#: src/client/pytriloquist/gui/app.py:133
-msgid "New"
+#: src/client/pytriloquist/gui/app.py:126
+#: src/client/pytriloquist/gui/main.py:32
+msgid "Open"
 msgstr ""
 
 #: src/client/pytriloquist/gui/app.py:34
-#: src/client/pytriloquist/gui/app.py:126
-msgid "Delete"
+#: src/client/pytriloquist/gui/app.py:42
+#: src/client/pytriloquist/gui/app.py:127
+#: src/client/pytriloquist/gui/app.py:135
+msgid "New"
 msgstr ""
 
 #: src/client/pytriloquist/gui/app.py:35
+#: src/client/pytriloquist/gui/app.py:128
+msgid "Delete"
+msgstr ""
+
+#: src/client/pytriloquist/gui/app.py:36
 msgid "Rename"
 msgstr ""
 
-#: src/client/pytriloquist/gui/app.py:62
-#: src/client/pytriloquist/gui/app.py:89
+#: src/client/pytriloquist/gui/app.py:63
+#: src/client/pytriloquist/gui/app.py:90
 msgid "Application name"
 msgstr ""
 
-#: src/client/pytriloquist/gui/app.py:74
-#: src/client/pytriloquist/gui/app.py:167
+#: src/client/pytriloquist/gui/app.py:75
+#: src/client/pytriloquist/gui/app.py:169
 #, python-format
 msgid "Delete \"%s\"?"
 msgstr ""
 
-#: src/client/pytriloquist/gui/app.py:80
-#: src/client/pytriloquist/gui/app.py:171
+#: src/client/pytriloquist/gui/app.py:81
+#: src/client/pytriloquist/gui/app.py:173
 msgid "Cannot remove an action."
 msgstr ""
 
-#: src/client/pytriloquist/gui/app.py:95
-#: src/client/pytriloquist/gui/app.py:182
+#: src/client/pytriloquist/gui/app.py:96
+#: src/client/pytriloquist/gui/app.py:184
 msgid "Cannot edit an action."
 msgstr ""
 
-#: src/client/pytriloquist/gui/app.py:127
+#: src/client/pytriloquist/gui/app.py:129
 msgid "Edit"
 msgstr ""
 
-#: src/client/pytriloquist/gui/app.py:128
+#: src/client/pytriloquist/gui/app.py:130
 msgid "Back"
 msgstr ""
 
-#: src/client/pytriloquist/gui/app.py:213
+#: src/client/pytriloquist/gui/app.py:214
 msgid "Command name"
 msgstr ""
 
-#: src/client/pytriloquist/gui/app.py:214
+#: src/client/pytriloquist/gui/app.py:215
 msgid "Command line"
 msgstr ""
 
@@ -107,41 +128,45 @@ msgstr ""
 msgid "Touchpad"
 msgstr ""
 
-#: src/client/pytriloquist/gui/main.py:32
-#: src/client/pytriloquist/gui/main.py:87
+#: src/client/pytriloquist/gui/main.py:33
+#: src/client/pytriloquist/gui/main.py:88
 msgid "About"
 msgstr ""
 
-#: src/client/pytriloquist/gui/main.py:33
+#: src/client/pytriloquist/gui/main.py:34
 msgid "Exit"
 msgstr ""
 
-#: src/client/pytriloquist/gui/main.py:37
+#: src/client/pytriloquist/gui/main.py:38
 msgid "Connect"
 msgstr ""
 
-#: src/client/pytriloquist/gui/main.py:38
+#: src/client/pytriloquist/gui/main.py:39
 #: src/client/pytriloquist/gui/settings.py:18
 msgid "Settings"
 msgstr ""
 
-#: src/client/pytriloquist/gui/main.py:81
+#: src/client/pytriloquist/gui/main.py:82
 msgid "Authors:"
 msgstr ""
 
-#: src/client/pytriloquist/gui/main.py:106
+#: src/client/pytriloquist/gui/main.py:107
 msgid "Apps"
 msgstr ""
 
-#: src/client/pytriloquist/gui/main.py:110
+#: src/client/pytriloquist/gui/main.py:111
+msgid "Orientation"
+msgstr ""
+
+#: src/client/pytriloquist/gui/main.py:116
 msgid "Disconnect"
 msgstr ""
 
-#: src/client/pytriloquist/gui/main.py:118
+#: src/client/pytriloquist/gui/main.py:124
 msgid "Input"
 msgstr ""
 
-#: src/client/pytriloquist/gui/main.py:152
+#: src/client/pytriloquist/gui/main.py:165
 msgid "Touch not enabled."
 msgstr ""
 

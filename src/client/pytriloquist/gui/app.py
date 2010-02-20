@@ -30,6 +30,7 @@ class ApplicationsDialog(Dialog):
 
         # Menu
         self.menu = [
+            (_(u"Open")  , self.app_list_observe),
             (_(u"New")   , self.new_app),
             (_(u"Delete"), self.delete_app),
             (_(u"Rename"), self.rename_app),
@@ -122,6 +123,7 @@ class CommandsDialog(Dialog):
 
         # Menu
         self.menu = [
+            (_(u"Open")  , self.cmd_list_observe),
             (_(u"New")   , self.new_cmd),
             (_(u"Delete"), self.delete_cmd),
             (_(u"Edit")  , self.edit_cmd),

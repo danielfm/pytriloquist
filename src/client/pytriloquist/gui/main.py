@@ -29,6 +29,7 @@ class IntroDialog(Dialog):
         self.settings_dialog = SettingsDialog(self.app, self)
 
         self.menu = [
+            (_(u"Open") , self.opt_list_observe),
             (_(u"About"), self.about),
             (_(u"Exit") , self.app.exit),
         ]
@@ -107,6 +108,11 @@ class MainDialog(Dialog):
         ]
 
         self.menu = [
+            (_(u"Orientation"), (
+                (_(u"Automatic"), self.set_orientation("automatic")),
+                (_(u"Landscape"), self.set_orientation("landscape")),
+                (_(u"Portrait") , self.set_orientation("portrait")),
+            )),
             (_(u"Disconnect"), self.back)
         ]
 
@@ -116,6 +122,13 @@ class MainDialog(Dialog):
             # Only works with touch-enabled devices
             self.input_dialog = InputDialog(self.app, self)
             self.tabs.append((_(u"Input"), self.open_input))
+
+    def set_orientation(self, orientation):
+        """Returns a function that changes the display orientation.
+        """
+        def fn():
+            ui.app.orientation = orientation
+        return fn
 
     def display(self):
         """Displays the dialog on the device.
