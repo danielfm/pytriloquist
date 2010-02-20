@@ -22,7 +22,7 @@ class Const(object):
 
     # App data
     APP_TITLE   = u"Pytriloquist"
-    APP_VERSION = u"0.2"
+    APP_VERSION = u"0.3"
     APP_LOCALE  = u"en"
     APP_YEAR    = 2010
     APP_AUTHOR  = u"Daniel Fernandes Martins"
