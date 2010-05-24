@@ -51,6 +51,7 @@ Requirements
 
 * `S60 5th Edition`_ device with touch support;
 * `Python for S60`_ 1.9.7+;
+* Translate-toolkit package;
 
 
 Build and Install
